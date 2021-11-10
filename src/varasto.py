@@ -1,6 +1,6 @@
 class Varasto:
     def __init__(self, tilavuus, alku_saldo):
-        self.tilavuus = abs(tilavuus)
+        self.tilavuus = max(0, tilavuus)
         self.saldo = 0.0
         if 0 < alku_saldo <= tilavuus:
             # mahtuu
