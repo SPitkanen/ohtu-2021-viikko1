@@ -1,18 +1,11 @@
 class Varasto:
     def __init__(self, tilavuus, alku_saldo):
-        if tilavuus > 0.0:
-            self.tilavuus = tilavuus
-        else:
-            # virheellinen, nollataan
-            self.tilavuus = 0.0
-        
-        if alku_saldo < 0.0:
-            # virheellinen, nollataan
-            self.saldo = 0.0
-        elif alku_saldo <= tilavuus:
+        self.tilavuus = abs(tilavuus)
+        self.saldo = 0.0
+        if 0 < alku_saldo <= tilavuus:
             # mahtuu
             self.saldo = alku_saldo
-        else:
+        if alku_saldo > tilavuus:
             # täyteen ja ylimäärä hukkaan!
             self.saldo = tilavuus
 
@@ -31,15 +24,12 @@ class Varasto:
     def ota_varastosta(self, maara):
         if maara < 0:
             return 0.0
-        if maara > self.saldo: 
+        if maara > self.saldo:
             kaikki_mita_voidaan = self.saldo
             self.saldo = 0.0
-
             return kaikki_mita_voidaan
-
         self.saldo = self.saldo - maara
-
         return maara
-    
+
     def __str__(self):
         return f"saldo = {self.saldo}, vielä tilaa {self.paljonko_mahtuu()}"
